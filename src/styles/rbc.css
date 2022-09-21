@@ -1,0 +1,13 @@
+.rbc-calendar {
+    height: 900px !important;
+    
+
+}
+
+.rbc-time-content > * + * > * {
+    border-left: none !important;
+}
+
+.rbc-today {
+    background-color: #FFFFFF !important;
+}
