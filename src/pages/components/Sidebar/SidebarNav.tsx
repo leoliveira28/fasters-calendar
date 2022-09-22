@@ -5,7 +5,7 @@ import { NavSection } from './NavSection'
 
 export function SiderbarNav(){
     return(
-        <Stack spacing='12' align='flex-start'>
+        <Stack spacing='5' align='flex-start'>
 
                     <NavLink href='/dashboard' icon={RiDashboardLine}>Agenda</NavLink>
                     <NavLink href='/users' icon={RiContactsLine}>Mensagens</NavLink>

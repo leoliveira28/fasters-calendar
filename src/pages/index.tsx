@@ -10,8 +10,8 @@ const Home: NextPage = () => {
   return (
     <>
     <Header />
-    <Flex w='100%'  maxWidth={1480} mx='auto' px='6'>
-      <Box borderRight='1px' borderRightColor='white.50' my='1' p='2' >
+    <Flex maxWidth={1480} mx='auto' px='2'>
+      <Box borderRight='1px' borderRightColor='white.50' my='1'>
         <Box mb='20px'>
         <Logo />
         <Box mt='20px'>
@@ -19,7 +19,7 @@ const Home: NextPage = () => {
         </Box>
         </Box>
       </Box>
-      <SimpleGrid columns={1} spacing={5} mx={10} my={10}>
+      <SimpleGrid columns={1} spacing={5} mx={2} my={10}>
         <InlineCalendar />
         <Text fontWeight="700" fontSize="20px">
         Next Event
@@ -28,7 +28,10 @@ const Home: NextPage = () => {
         <Events />
         <Events />
         </SimpleGrid>
+        <Flex mx='auto'>
         <Schedule />
+        </Flex>
+       
       </Flex>
  
       </>
