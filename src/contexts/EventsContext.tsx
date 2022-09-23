@@ -14,8 +14,8 @@ interface EventProps {
 
 const EventContext = createContext(undefined);
 
-function EventProvider({ children }: EventProviderProps) {
-    const [eventData, setEventData] = useState(undefined)
+export function EventProvider({ children }: EventProviderProps) {
+    const [eventData, setEventData] = useState()
 
     return (
         <EventContext.Provider value={{eventData, setEventData}}>
@@ -24,4 +24,4 @@ function EventProvider({ children }: EventProviderProps) {
     )
 }
 
-export {EventContext, EventProvider}
+export {EventContext}

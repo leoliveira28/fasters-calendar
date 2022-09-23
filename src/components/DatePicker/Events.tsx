@@ -1,9 +1,19 @@
 import { Box, Icon, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { BsClock } from 'react-icons/bs'
 
 
 export function Events() {
+  const [localEvents, setLocalEvents] = useState([{}])
+useEffect(() => {
+  if(typeof window !== 'undefined') {
+    const local = localStorage.getItem('events')
+    setLocalEvents(JSON.parse(local))
+  }
+}, [])
+console.log(localEvents)
   return (
+
     <Box>
       <Box
         px="16px"

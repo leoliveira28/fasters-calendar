@@ -7,7 +7,7 @@ interface DatePickerProviderProps {
 
 const DatePickerContext = createContext(undefined);
 
-function DatePickerProvider({ children }: DatePickerProviderProps) {
+export function DatePickerProvider({ children }: DatePickerProviderProps) {
     const [dateValue, setDateValue] = useState()
 
     return (
@@ -17,4 +17,4 @@ function DatePickerProvider({ children }: DatePickerProviderProps) {
     )
 }
 
-export {DatePickerContext, DatePickerProvider}
+export {DatePickerContext}

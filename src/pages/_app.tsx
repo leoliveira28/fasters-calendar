@@ -9,12 +9,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
 
     <ChakraProvider theme={theme}>
-      <EventProvider>
       <DatePickerProvider>
+      <EventProvider>
       <Component {...pageProps} />
-      </DatePickerProvider>
       </EventProvider>
-
+      </DatePickerProvider>
   </ChakraProvider>
   )
 }

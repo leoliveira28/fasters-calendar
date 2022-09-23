@@ -3,28 +3,41 @@ import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
+import ptBR from 'date-fns/locale/pt-BR';
 import { Box } from '@chakra-ui/react'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import { DatePickerContext } from '../../../contexts/DatePickerContext';
+import { DatePickerContext } from '../../contexts/DatePickerContext';
 import { useContext, useEffect, useState } from 'react';
-import { EventContext } from '../../../contexts/EventsContext';
+import { EventContext } from '../../contexts/EventsContext';
 
 interface EventData {
-    eventName: string;
-    eventDescription: string;
-    eventDate: string;
-    eventTime: string;
+    title: string;
+    start: string;
+    end: string;
+    id?: number;
 }
 export function Schedule(){
+    const events = [{
+        id: 0,
+        start: new Date(2022, 8, 22),
+        end: new Date(2022, 8, 22),
+        title: 'teste',
+    }]
     const { eventData } = useContext(EventContext)
-    const { dateValue } = useContext(DatePickerContext)
     const [eventsInput, setEventsInput] = useState({} as EventData)
-    const [allEvents, setAllEvents] = useState(eventsInput)
+    const [allEvents, setAllEvents] = useState(events)
     
     useEffect(() => {
-        setEventsInput(eventData)
+        setAllEvents([...allEvents, eventData])
+        if(allEvents === undefined){
+            return
+         } else {
+            localStorage.setItem('events', JSON.stringify(allEvents))
+
+         }
     }, [eventData])
-    
+    console.log(!allEvents)
+
     const locales = {
         'pt-BR': require('date-fns/locale/pt-BR'),
     }
@@ -36,17 +49,15 @@ export function Schedule(){
         locales    
     })
 
+
     const defaultDate = new Date()
-    const events = [{
-        id: 0,
-        title: allEvents.eventName,
-        start: allEvents.eventDate,
-        end: allEvents.eventDate +1
-    }]
-    return(
+
+    
+
+    return (
         <Box mt='20px'>
         <Calendar
-        events={events}
+        events={allEvents}
         defaultView={Views.DAY}
         defaultDate={defaultDate}
         localizer={localizer}

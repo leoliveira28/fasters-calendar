@@ -3,28 +3,18 @@ import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBod
 
 import { FormEvent, useContext, useEffect, useRef, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
-import { EventContext } from "../../../contexts/EventsContext";
+import { EventContext } from "../../contexts/EventsContext";
 
 export function SearchBox() {
   const searchInputRef = useRef<HTMLInputElement>(null)
-  const [eventName, setEventName] = useState('')
-  const [eventDescription, setEventDescription] = useState('')
-  const [eventDate, setEventDate] = useState('')
-  const [eventTime, setEventTime] = useState('')
-  const { eventData, setEventData } = useContext(EventContext)
-  useEffect(() => {
-    localStorage.setItem('events', JSON.stringify(eventData))
-  }, [eventData])
+  const { setEventData } = useContext(EventContext)
+
+  const  [newEvent, setNewEvent] = useState({title: '', start: new Date(), end: new Date(), description: '', time: new Date()})
   function handleSubmit(e) {
     e.preventDefault()
-    const event ={
-      eventName: eventName,
-      eventDescription: eventDescription,
-      eventDate: eventDate,
-      eventTime: eventTime
-    }
-    setEventData(event)
-  }
+    setEventData(newEvent)
+
+}
 
   const { isOpen, onClose, onOpen: onCreateOpen } = useDisclosure();
   return (
@@ -38,33 +28,33 @@ export function SearchBox() {
             <ModalCloseButton />
             <ModalBody>
               <form onSubmit={(e) => handleSubmit(e)}>
-            <FormControl >
               <Stack spacing={5}>
                 <FormLabel>
                   Nome do evento
-                  <Input type="text" onChange={(e) => setEventName(e.target.value)} />
+                  <Input type="text" onChange={(e) => setNewEvent({...newEvent, title: e.target.value})} />
                 </FormLabel>
                 <FormLabel>
                   Descrição
-                  <Input type="text" onChange={(e) => setEventDescription(e.target.value)} />
+                  <Input type="text" onChange={(e) => setNewEvent({...newEvent, description: e.target.value})} />
                 </FormLabel>
                 <FormLabel>
-                  Data
-                <Input type="date" onChange={(e) => setEventDate(e.target.value)} />
+                  Data incio
+                <Input type="date" onChange={(e) => setNewEvent({...newEvent, start: new Date(Date.parse(e.target.value))})} />
+                </FormLabel>
+                <FormLabel>
+                  Data termino
+                <Input type="date" onChange={(e) => setNewEvent({...newEvent, end: new Date(Date.parse(e.target.value))})} />
                 </FormLabel>
                 <FormLabel>
                   Horário
-                  <Input type='time' onChange={(e) => setEventTime(e.target.value)} />
+                  <Input type='time' onChange={(e) => setNewEvent({...newEvent, time: new Date(Date.parse(e.target.value))})} />
                 </FormLabel>
               </Stack>
               <Button variant='ghost' mr={3} onClick={onClose}>
                 Fechar
               </Button>
               <Button colorScheme='blue' type='submit' onClick={onClose}>Salvar</Button>
-              </FormControl>
               </form> 
-
-
             </ModalBody>
           </ModalContent>
         </Modal>
